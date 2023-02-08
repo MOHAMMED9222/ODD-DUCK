@@ -1,21 +1,22 @@
 'use strict'
 // 3 GLOBALS, DOM
-let myContainer = document.querySelector('section')
-let myButton = document.querySelector('button')
+let imageHolder = document.getElementById('imageHolder')
+let myButton = document.getElementById('resultsButton')
 
 let image1 = document.getElementById('img1');
 let image2 = document.getElementById('img2');
 let image3 = document.getElementById('img3');
 
-let results = document.getElementById('resultsContainer')
+let resultsContainer = document.getElementById('resultsContainer')
 
 let numberOfMatchUps = 0;
 let numberOfMatchupsAllowed = 25;
 let allDucks = [];
+//let indexArray = [];
 
 
 // 1
-function Duck (name, fileExtension = 'jpeg') {
+function Duck(name, fileExtension = 'jpeg') {
   this.name = name;
   this.src = `images/${name}.${fileExtension}`;
   this.views = 0;
@@ -35,7 +36,7 @@ let dragon = new Duck('dragon')
 let pen = new Duck('pen')
 let scissors = new Duck('scissors')
 let shark = new Duck('shark')
-let sweep = new Duck('sweep','png')
+let sweep = new Duck('sweep', 'png')
 let tautaun = new Duck('tauntaun')
 let unicorn = new Duck('unicorn')
 let waterCan = new Duck('water-can')
@@ -50,7 +51,7 @@ allDucks = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, 
 //     - increment the number of match ups 
 
 function selectrandomDuck() {
-  return Math.floor(Math.random() * allDucks.length); 
+  return Math.floor(Math.random() * allDucks.length);
 
 }
 
@@ -65,52 +66,57 @@ function renderDucks() {
   while (duck1 === duck3 || duck2 === duck3) {
     duck3 = selectrandomDuck();
   }
-console.log(duck1, duck2, duck3)
-console.log(image1, image2, image3)
-   image1.src = allDucks[duck1].src;
-   image2.src = allDucks[duck2].src;
-    image3.src = allDucks[duck3].src;
-    image1.alt = allDucks[duck1].name;
-    image2.alt = allDucks[duck2].name;
-   image3.alt = allDucks[duck3].name;
-}
+  console.log(duck1, duck2, duck3)
+  console.log(image1, image2, image3)
+  image1.src = allDucks[duck1].src;
+  image2.src = allDucks[duck2].src;
+  image3.src = allDucks[duck3].src;
+  image1.alt = allDucks[duck1].name;
+  image2.alt = allDucks[duck2].name;
+  image3.alt = allDucks[duck3].name;
 
-function renderResults() {
-  let results = document.querySelector('ul');
-  for (let i = 0; i < allDucks.length; i++) {
-    let li = document.createElement('li');
-    li.textContent = `${allDucks[i].name} had ${allDucks[i].views} views and ${allDucks[i].likes} likes.`;
-    results.appendChild(li);
-  }
+  allDucks[duck1].views++;
+  allDucks[duck2].views++;
+  allDucks[duck3].views++;
+
+
 }
 renderDucks();
 
+function renderResults() {
+  console.log('views')
+  // if (numberOfMatchUps === 0)
+
+
+  for (let i = 0; i < allDucks.length; i++) {
+    let li = document.createElement('li');
+    li.textContent = `${allDucks[i].name} had ${allDucks[i].views} views and ${allDucks[i].likes} likes.`;
+    resultsContainer.appendChild(li);
+  }
+  myButton.removeEventListener('click', renderResults)
+
+}
+imageHolder.addEventListener('click', handleDuckClick)
 
 function handleDuckClick(event) {
   let clickedDuck = event.target.alt;
-  for (let i = 0; i < allDucks.length; i ++) {
+  console.log(clickedDuck)
+  for (let i = 0; i < allDucks.length; i++) {
     if (allDucks[i].name === clickedDuck) {
       allDucks[i].likes++;
     }
   }
   // which image got clicked?
-
+  numberOfMatchUps++;
   // 
-numberOfMatchUps--;
-renderDucks();
-if (numberOfMatchUps === 0){
-  myContainer.removeEventListener('click', handleDuckClick);
+  // numberOfMatchUps--;
+
+  if (numberOfMatchUps < numberOfMatchupsAllowed) {
+    renderDucks();
+  } else {
+    imageHolder.removeEventListener('click', handleDuckClick);
+    myButton.addEventListener('click', renderResults)
+
+  }
 }
-else{
-  //myContainer.removeEventListener('click', handleDuckClick);
-  myButton.addEventListener('click', renderResults);
-}
-}
 
-
-
-
-// event listner
-
-myContainer.addEventListener('click', handleDuckClick)
-results.document.getElementById('resultsContainer')

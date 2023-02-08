@@ -32,7 +32,11 @@ section img {
   width: 30%;
 }
 
-#button {
+#resultsContainer {
   display: flex;
   justify-content: center;
+}
+
+#thisbutton {
+  margin-top: 20%;
 }
