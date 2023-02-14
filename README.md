@@ -1,6 +1,6 @@
 # ODD-DUCK
 
-http://127.0.0.1:5501/index.html (live)
+https://mohammed9222.github.io/ODD-DUCK/ (live)
 
 lab 11-15
 ODD - DUCK
