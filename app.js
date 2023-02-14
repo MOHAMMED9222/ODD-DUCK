@@ -12,6 +12,7 @@ let resultsContainer = document.getElementById('resultsContainer')
 let numberOfMatchUps = 0;
 let numberOfMatchupsAllowed = 25;
 let allDucks = [];
+let indexArray = [];
 //let indexArray = [];
 
 
@@ -56,16 +57,22 @@ function selectrandomDuck() {
 }
 
 function renderDucks() {
-  let duck1 = selectrandomDuck();
-  let duck2 = selectrandomDuck();
-  let duck3 = selectrandomDuck();
+  // let duck1 = selectrandomDuck();
+  // let duck2 = selectrandomDuck();
+  // let duck3 = selectrandomDuck();
 
-  while (duck1 === duck2) {
-    duck2 = selectrandomDuck();
+  while (indexArray.length < 6) {
+    let ranNum = selectrandomDuck();
+    // console.log(duck1, duck2, duck3);
+    if (!indexArray.includes(ranNum)) {
+      indexArray.push(ranNum);
+    }
   }
-  while (duck1 === duck3 || duck2 === duck3) {
-    duck3 = selectrandomDuck();
-  }
+
+  let duck1 = indexArray.shift();
+  let duck2 = indexArray.shift();
+  let duck3 = indexArray.shift();
+
   console.log(duck1, duck2, duck3)
   console.log(image1, image2, image3)
   image1.src = allDucks[duck1].src;
@@ -115,8 +122,52 @@ function handleDuckClick(event) {
     renderDucks();
   } else {
     imageHolder.removeEventListener('click', handleDuckClick);
-    myButton.addEventListener('click', renderResults)
+    //myButton.addEventListener('click', renderResults)
+    renderChart();
 
+  }}
+
+
+
+const ctx = document.getElementById('myChart');
+
+function renderChart () {
+
+  let duckLikes = [];
+  let duckNames = [];
+  let duckViews = [];
+
+  for (let i = 0; i < allDucks.length; i++) {
+    duckLikes.push(allDucks[i].likes);
+    duckNames.push(allDucks[i].name);
+    duckViews.push(allDucks[i].views);
   }
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: duckNames,
+    datasets: [
+      {
+      label: '# of Votes',
+      data: duckLikes,
+      borderWidth: 1,
+      backgroundColor: ['purple','red',]
+    },
+    {
+      label: '# of Views',
+      data: duckLikes,
+      borderWidth: 1,
+      backgroundColor: ['blue', 'orange'
+      ]
+    }
+  ]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
 }
-
