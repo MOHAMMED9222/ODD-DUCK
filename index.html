@@ -9,12 +9,30 @@
   <link rel="stylesheet" href="style.css">
   <title>DOCUMENT</title>
 </head>
+<nav>
+  <H1>ODD DUCK</H1>
 
-<p id="resultsButton">RESULTS</p>
-<ul id="resultsContainer"></ul>
+</nav>
+<div class="container"></div>
+
+
+<div id="form">
+  <form>
+    <label for="darkButton">
+        <input type="radio" name="mode" id="darkButton" class="mode" value="dark"/>
+        <span>Dark Mode</span>
+    </label>
+    <label for="lightButton">
+        <input type="radio" name="mode" id="lightButton" class="mode" value="light" checked/>
+        <span>Light Mode</span>
+    </label>
+  </form>
+
+</div>
 <body>
   <main>
-    <H1>ODD DUCK</H1>
+   
+
     <section id="imageHolder">
     
         <img id="img1">
@@ -42,12 +60,22 @@
     
 
 </main>
+<p id="resultsButton">RESULTS</p>
+<ul id="resultsContainer"></ul>
 <div>
   <canvas id="myChart"></canvas>
+  <div id="comment">
+    
+
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
+<footer>
+  <p>Leave a comment</p>
+  <textarea id="commentBox" name="" id="" cols="30" rows="10"></textarea> -->
+</footer>
 
 </html>
